@@ -13,7 +13,7 @@ const PER_PAGE = 12;
 export default class App extends Component {
 
     state = {
-        currentPage: 1,
+        currentPage: 0,
         searchObject: '',
         hits: [],
         error: null,
@@ -21,8 +21,12 @@ export default class App extends Component {
         showModal: false,
         tags: '',
         largeImageURL: ''
-
     }
+
+    // loadHidden(){
+    //    const loadHidden = document.querySelector('.button');
+    //    console.log(loadHidden);
+    // }
 
     componentDidUpdate(prevProps, prevState){
         const prevName = prevState.searchObject
@@ -81,8 +85,8 @@ export default class App extends Component {
 
 
     render(){
-        const {hits, error, isLoading, showModal, tags, largeImageURL} = this.state
-        const renderButtonLoadMore = hits.length > 0 && !isLoading
+        const {hits, error, isLoading, showModal, tags, largeImageURL} = this.state;
+        const renderButtonLoadMore = Math.ceil((this.state.currentPage-1)*12/hits.length) === 1 && !isLoading;
 
 
         return (
